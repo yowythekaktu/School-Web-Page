@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSHS Web</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <nav>
+        <div class="logo" style="font-size: 1.5rem;"><strong>OSHS</strong></div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="admission-steps/information.html">Admission</a></li>
+            <li class="strand-dropdown"><a>Strands</a>
+                <ul class="dropdown-content">
+                    <li><a href="strands/ict.html" data-tooltip="Information and Communication Technology">ICT</a></li>
+                    <li><a href="strands/he.html" data-tooltip="Home Economics">HE</a></li>
+                    <li><a href="strands/abm.html" data-tooltip="Accountancy, Business, and Management">ABM</a></li>
+                    <li><a href="strands/gas.html" data-tooltip="General Academic Strand">GAS</a></li>
+                    <li><a href="strands/stem.html" data-tooltip="Science, Technology, Engineering, and Mathematics">STEM</a></li>
+                    <li><a href="strands/humss.html" data-tooltip="Humanities and Social Sciences">HUMSS</a></li>
+                </ul>
+            </li>
+            <li class="login-btn"><a href="login.html">Sign in</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main class="container fade-in-up">
+    <section style="background: var(--gov-gray); padding: 4rem 2rem; text-align: center; margin-bottom: 2rem;">
+        <h1>Maka-Diyos, Maka-tao, Makakalikasan at Makabansa</h1>
+        <p>Quality Education for Every Filipino Senior High School Learner</p>
+    </section>
+
+    <section>
+        <h2>School Profile</h2>
+        <p>Founded in 1995, our school has consistently provided top-tier secondary education. Our mission is to protect and promote the right of every Filipino to quality, equitable, culture-based, and complete basic education.</p>
+    </section>
+
+    <section>
+        <h2>Academic & TVL Strands</h2>
+        <div class="strands-grid">
+            <div class="strand-card">
+                <h3>ICT</h3>
+                <p>Information and Communications Technology.</p>
+                <a href="strands/ict.html">View Details</a>
+            </div>
+            <div class="strand-card">
+                <h3>HE</h3>
+                <p>Home Economics</p>
+                <a href="strands/he.html">View Details</a>
+            </div>
+            <div class="strand-card">
+                <h3>ABM</h3>
+                <p>Accountancy, Business, and Management.</p>
+                <a href="strands/abm.html">View Details</a>
+            </div>
+            <div class="strand-card">
+                <h3>GAS</h3>
+                <p>General Academic Strand</p>
+                <a href="strands/gas.html">View Details</a>
+            </div>
+            <div class="strand-card">
+                <h3>STEM</h3>
+                <p>Science, Technology, Engineering, and Mathematics</p>
+                <a href="strands/stem.html">View Details</a>
+            </div>
+            <div class="strand-card">
+                <h3>HUMSS</h3>
+                <p>Humanities and Social Sciences</p>
+                <a href="strands/humss.html">View Details</a>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>School Facilities</h2>
+        <div class="grid-gallery">
+            <div class="grid-item">
+                <img src="https://via.placeholder.com/400x300" alt="Library">
+                <span>School Library</span>
+            </div>
+            <div class="grid-item">
+                <img src="images/com-lab.jpg" alt="ICT Lab">
+                <span>Computer Laboratory</span>
+            </div>
+            <div class="grid-item">
+                <img src="https://via.placeholder.com/400x300" alt="Stem Lab">
+                <span>Science Laboratory</span>
+            </div>
+            <div class="grid-item">
+                <img src="images/he-lab.jpg" alt="He Lab">
+                <span>Kitchen Laboratory</span>
+            </div>
+        </div>
+    </section>
+
+    <section>
+    <h2>Recent School Events & Activities</h2>
+    <div class="flex-gallery">
+        
+        <div class="events-activites">
+            <input type="checkbox" id="event1" class="modal-toggle">
+            <label for="event1" class="img-container">
+                <img src="https://scontent.fmnl4-2.fna.fbcdn.net/v/t39.30808-6/638246547_122174648276893853_3307443601032804439_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=7b2446&_nc_eui2=AeGTBdeTi77EQxbDRpUU8QVsSMzVchTLimtIzNVyFMuKa2M5AZ3ybPlWq2_Ls9vPFY6kxvunL1S9t5-EvzURrlYV&_nc_ohc=Y30Y2JmNgs4Q7kNvwFmEtze&_nc_oc=AdlAfyXV6KhOTvW76tdwCMLxR7qph2fWB-_Lujd4rhsKIANJtFLzsoMSyfdgZk_-X6k&_nc_zt=23&_nc_ht=scontent.fmnl4-2.fna&_nc_gid=DKpQKef7nMPCLC5-LN1CNg&oh=00_AfthS_w2rAC2Nfso8Oxv3C6h4-JVYNrRNPznyDAGp4R2sg&oe=69A363D7" alt="Voter's Education">
+                <div class="view-details-text">View More Details</div>
+            </label>
+            <div class="details-overlay">
+                <div class="details-content">
+                    <label for="event1" class="close-btn">&times;</label>
+                    <h3>Voter's Education Seminar</h3>
+                    <p>Students engaged in a session regarding civic duty, the electoral process, and the importance of participation in democracy.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="events-activites">
+            <input type="checkbox" id="event2" class="modal-toggle">
+            <label for="event2" class="img-container">
+                <img src="https://scontent.fmnl4-1.fna.fbcdn.net/v/t39.30808-6/636171682_931241949422660_4295512930097819100_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=7b2446&_nc_eui2=AeF-tcElr7604jZim5d2r5mrMTjvf_O_9W8xOO9_87_1b8EVR1Ls_5ZMTDTIM4R3mZExmt1zC20aehe1R07EiT0W&_nc_ohc=5jl5n1IPjIcQ7kNvwGZfJt6&_nc_oc=Adkdg0kDLKYGcUbNXi54itL_4m_ufhGDx6eRuMr3uDqdZTwWBvlPW1dyhSWVLQBEmgM&_nc_zt=23&_nc_ht=scontent.fmnl4-1.fna&_nc_gid=YvnwQly7V0Xv7n8WOa3p3g&oh=00_AfsO3w4M4yXIf7piZKqeOoEivgyHc5ZUZ9m_POQNvuTGvQ&oe=69A36923" alt="Valentines Day Event">
+                <div class="view-details-text">View More Details</div>
+            </label>
+            <div class="details-overlay">
+                <div class="details-content">
+                    <label for="event2" class="close-btn">&times;</label>
+                    <h3>Valentine's Day Event</h3>
+                    <p>A day of celebration featuring booth activities, musical numbers, and student interaction to promote school spirit.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="events-activites">
+            <input type="checkbox" id="event3" class="modal-toggle">
+            <label for="event3" class="img-container">
+                <img src="https://scontent.fmnl4-7.fna.fbcdn.net/v/t39.30808-6/629512334_1443968877420074_3522880761103492070_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=104&ccb=1-7&_nc_sid=13d280&_nc_eui2=AeECldxElnZFrVmqJlJchpY_iW1Vqa7uAZaJbVWpru4BlmnjP_tu0pxSP7kUsi_XHAwciN3uLiwl_kpXgIuuzgwP&_nc_ohc=uBbRgg83SQ8Q7kNvwEgVcfe&_nc_oc=AdnXoMnx7K2XolPdPB8oRDHHfuCAGbzvAZ4feiT-7BDJpfxQ101nk6_n2oLmm4URF-I&_nc_zt=23&_nc_ht=scontent.fmnl4-7.fna&_nc_gid=kCwqx1ioSygDTUrYTUbQYA&oh=00_AfutYbdaGTE9hq3fyoaiQeF8giNq3uiEb9XbnyUIDHTIqg&oe=69A36423" alt="Career Guidance">
+                <div class="view-details-text">View More Details</div>
+            </label>
+            <div class="details-overlay">
+                <div class="details-content">
+                    <label for="event3" class="close-btn">&times;</label>
+                    <h3>Career Guidance & Dress For Success</h3>
+                    <p>An event designed to prepare students for the professional world, focusing on career paths and proper business etiquette.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="events-activites">
+            <input type="checkbox" id="event4" class="modal-toggle">
+            <label for="event4" class="img-container">
+                <img src="https://scontent.fmnl4-1.fna.fbcdn.net/v/t39.30808-6/625083979_916757440871111_4304525305123818134_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=7b2446&_nc_eui2=AeFadbOCXIqmBB48AySjQM7MaX7gjBVrJsdpfuCMFWsmx-Iq273aswNTM8L9qG7FTgFxbRyx_vvpD9EPlyvAi8HO&_nc_ohc=Dz-Bkbe0rZsQ7kNvwEx_PlC&_nc_oc=AdnueYQ9LxCXrNGxfXA6Y1dNKEOOKSZWFNveTti3TF8leKy65h0BROuJnds-zGIYW3M&_nc_zt=23&_nc_ht=scontent.fmnl4-1.fna&_nc_gid=hJp8dkCV5pI_M39JdWohTA&oh=00_AfsSErwlDHrJuEcqRBxi3JTSV3rr_07QEEo9lgdC8uqpQA&oe=69A35674" alt="Zero Waste Month">
+                <div class="view-details-text">View More Details</div>
+            </label>
+            <div class="details-overlay">
+                <div class="details-content">
+                    <label for="event4" class="close-btn">&times;</label>
+                    <h3>Zero Waste Month</h3>
+                    <p>Promoting environmental awareness through recycling drives and sustainable practices within the school community.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+</main>
+
+<footer style="margin-top: 5rem;">
+    <div class="container">
+        <div class="footer-content" style="display: flex; flex-wrap: wrap; gap: 50px;">
+            
+            <div style="flex: 2 1 300px;">
+                <h3 style="color: var(--white); margin-bottom: 1rem;">OBANDO <span style="color: var(--accent-gold);">SHS</span></h3>
+                <p style="font-size: 0.9rem; color: #e6e6e6;">Dedicated to providing quality, equitable, and culture-based basic education to the youth of our community. Registered public school under the Schools Division Office.</p>
+            </div>
+
+            <div  style="flex: 1 1 150px;">
+                <h4 style="color: var(--accent-gold); margin-bottom: 1rem;">Navigation</h4>
+                <ul class="footer-navigation" style="list-style: none; font-size: 0.9rem;">
+                    <li style="margin-bottom: 8px;"><a href="index.html" style="text-decoration: none;">Home</a></li>
+                    <li style="margin-bottom: 8px;"><a href="admission-steps/information.html" style="text-decoration: none;">Admission</a></li>
+                </ul>
+            </div>
+
+            <div style="flex: 1 1 200px;">
+                <h4 style="color: var(--accent-gold); margin-bottom: 1rem;">Contact Us</h4>
+                <p style="font-size: 0.9rem; color: #e6e6e6; margin-bottom: 8px;">📍 Paliwas, Obando, Bulacan</p>
+                <p style="font-size: 0.9rem; color: #e6e6e6; margin-bottom: 8px;">📞 (02) 8920-1234</p>
+                <p style="font-size: 0.9rem; color: #e6e6e6;">✉️ OSHS@edu.ph</p>
+            </div>
+        </div>
+
+        <div class="footer-bottom" style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #424242; text-align: center; color: #e6e6e6; font-size: 0.8rem;">
+            &copy; OSHS. All Rights Reserved.
+        </div>
+    </div>
+</footer>
+
+</body>
+
+<div class="loading-overlay">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4rem;">
+        <div class="skeleton" style="width: 100px; height: 30px;"></div>
+        <div style="display: flex; gap: 20px;">
+            <div class="skeleton" style="width: 60px; height: 20px;"></div>
+            <div class="skeleton" style="width: 60px; height: 20px;"></div>
+            <div class="skeleton" style="width: 60px; height: 20px;"></div>
+        </div>
+    </div>
+
+    <div class="skeleton" style="width: 100%; height: 300px; margin-bottom: 3rem; border-radius: 10px;"></div>
+
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+        <div style="padding: 20px; border: 1px solid #eee; border-radius: 8px;">
+            <div class="skeleton" style="width: 40%; height: 25px; margin-bottom: 15px;"></div>
+            <div class="skeleton" style="width: 100%; height: 15px; margin-bottom: 10px;"></div>
+            <div class="skeleton" style="width: 80%; height: 15px;"></div>
+        </div>
+        <div style="padding: 20px; border: 1px solid #eee; border-radius: 8px;">
+            <div class="skeleton" style="width: 40%; height: 25px; margin-bottom: 15px;"></div>
+            <div class="skeleton" style="width: 100%; height: 15px; margin-bottom: 10px;"></div>
+            <div class="skeleton" style="width: 80%; height: 15px;"></div>
+        </div>
+        <div style="padding: 20px; border: 1px solid #eee; border-radius: 8px;">
+            <div class="skeleton" style="width: 40%; height: 25px; margin-bottom: 15px;"></div>
+            <div class="skeleton" style="width: 100%; height: 15px; margin-bottom: 10px;"></div>
+            <div class="skeleton" style="width: 80%; height: 15px;"></div>
+        </div>
+    </div>
+</div>
+</html>

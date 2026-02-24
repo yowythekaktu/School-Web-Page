@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Sign In | OSHS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<main class="container">
+    <div style="text-align: center; margin-bottom: 2rem;">
+        <h1 style="color: var(--deped-blue);">Sign in</h1>
+    </div>
+    
+    <div class="form-container">
+        <form action="index.html">
+            <div class="form-group">
+                <label>LRN</label>
+                <input type="tel" name="lrn" placeholder="Enter your 12-digit LRN" pattern="[0-9]{12}" maxlength="12" title="Numbers only! Letters are not allowed." inputmode="numeric" required>
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" name="password" placeholder="Enter your password" pattern="[A-Za-z0-9 !@#$%^&*_+,.]{8,30}" minlength="8" maxlength="30" title="Minimum 8 characters. Letters, numbers, and symbols (!@#$%^&*_+.,) allowed." required>
+            </div>
+            <div class="recovery-link">
+            <a href="recovery/recovery.html" style="margin-top: 1rem; text-align: center; font-size: 0.75rem;">Forgot password?</a>
+            <span id="recovery-link-text" style="margin-top: 1rem; font-size: 0.75rem; padding-left: 4px; color: #665;">← Recover with registered Email</span>
+            </div>
+            <button type="submit" class="btn-submit" style="width: 100%;">Sign In</button>
+            <div class="register-link" style="display: flex; justify-content: center;">
+            <span style="font-size: 0.8rem; color: #665; margin-top: 1rem; margin-right: 4px;">Don't have an account? </span>
+            <a href="register.html" style="cursor: pointer; margin-top: 1rem; font-size: 0.8rem; text-align: center;">Sign Up here</a>
+            </div>
+        </form>
+    </div>
+    <p style="text-align: center;"><a href="index.html" style="color: var(--deped-blue)">← Return to Homepage</a></p>
+</main>
+
+</body>
+
+<div class="loading-overlay">
+    <div style="max-width: 450px; width: 100%; margin: 80px auto; padding: 0 20px;">
+        
+        <div class="skeleton" style="width: 120px; height: 40px; margin: 0 auto 2.5rem; display: block;"></div>
+        
+        <div style="padding: 2rem; border: 1px solid #eee; border-radius: 8px;">
+            <div class="skeleton" style="width: 40px; height: 15px; margin-bottom: 10px;"></div>
+            <div class="skeleton" style="width: 100%; height: 45px; margin-bottom: 1.5rem;"></div>
+            
+            <div class="skeleton" style="width: 70px; height: 15px; margin-bottom: 10px;"></div>
+            <div class="skeleton" style="width: 100%; height: 45px; margin-bottom: 1rem;"></div>
+            
+            <div class="skeleton" style="width: 180px; height: 12px; margin-bottom: 2rem;"></div>
+            
+            <div class="skeleton" style="width: 100%; height: 45px; border-radius: 5px; margin-bottom: 1rem;"></div>
+            
+            <div class="skeleton" style="width: 160px; height: 12px; margin: 0 auto; display: block;"></div>
+        </div>
+
+        <div class="skeleton" style="width: 140px; height: 15px; margin: 2rem auto 0; display: block;"></div>
+    </div>
+</div>
+</html>

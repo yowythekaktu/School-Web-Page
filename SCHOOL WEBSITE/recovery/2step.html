@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> 2 Step Verification | OSHS</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<main class="container">
+    <div style="text-align: center; margin-bottom: 2rem;">
+        <h1 style="color: var(--deped-blue);">Enter Code</h1>
+        <p>We sent a 6-digit code to your email. Please enter it below.</p>
+    </div>
+
+    <div class="form-container" style="max-width: 400px;">
+        <form action="success.html">
+            <div class="form-group">
+                <label>6-Digit Verification Code</label>
+                <input type="text" 
+                       placeholder="000000" 
+                       required 
+                       pattern="[0-9]{6}" 
+                       maxlength="6"
+                       style="text-align: center; font-size: 1.5rem; letter-spacing: 10px;">
+            </div>
+            <button type="submit" class="btn-submit" style="width: 100%;">Verify Code</button>
+            <p style="font-size: 0.8rem; text-align: center; margin-top: 1rem;">
+                Didn't receive it? <a href="2step.html">Resend Code</a>
+            </p>
+        </form>
+    </div>
+</main>
+
+</body>
+
+<div class="loading-overlay">
+    <div style="max-width: 400px; width: 100%; margin: 100px auto; padding: 0 20px; text-align: center;">
+        
+        <div class="skeleton" style="width: 180px; height: 35px; margin: 0 auto 15px; display: block;"></div>
+        <div class="skeleton" style="width: 280px; height: 15px; margin: 0 auto 2.5rem; display: block;"></div>
+        
+        <div style="padding: 2rem; border: 1px solid #eee; border-radius: 8px; background: white;">
+            <div class="skeleton" style="width: 140px; height: 12px; margin: 0 auto 15px; display: block;"></div>
+            
+            <div class="skeleton" style="width: 100%; height: 60px; border-radius: 5px; margin-bottom: 2rem;"></div>
+            
+            <div class="skeleton" style="width: 100%; height: 45px; border-radius: 5px; margin-bottom: 1rem;"></div>
+            
+            <div class="skeleton" style="width: 160px; height: 12px; margin: 0 auto; display: block;"></div>
+        </div>
+    </div>
+</div>
+</html>
