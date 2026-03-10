@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Clearance | OSHS</title>
+    <link rel="icon" type="image/png" href="../../images/favicon-32x32.png?v=2">
+    <style>
+        :root {
+            --blue: #1a56db;
+            --navy: #1e3a8a;
+            --white: #ffffff;
+            --radius-lg: 20px;
+            --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --trans: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --danger: #ef4444;
+            --success: #22c55e;
+            --warning: #f59e0b;
+        }
+
+        body {
+            background: #f4f7fe;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 15px;
+            color: #334155;
+        }
+
+        .clearance-container {
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--blue);
+            font-weight: 700;
+            text-decoration: none;
+            background: var(--white);
+            padding: 10px 22px;
+            border-radius: 50px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1.5rem;
+            transition: var(--trans);
+            font-size: 0.9rem;
+        }
+
+        .back-link:hover {
+            transform: translateX(-5px);
+            background: var(--blue);
+            color: white;
+        }
+
+        .status-hero {
+            background: linear-gradient(135deg, var(--navy) 0%, #1a3a8f 50%, var(--blue) 100%);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            color: white;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-progress-track {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .hero-progress-fill {
+            height: 100%;
+            width: 60%;
+            background: linear-gradient(90deg, var(--danger), var(--warning), var(--success));
+            transition: width 1s ease-in-out;
+        }
+
+        .hero-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+            gap: 20px;
+        }
+
+        .hero-text h1 {
+            margin: 0;
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .hero-text p {
+            margin: 5px 0 0;
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        .progress-box {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
+            padding: 1rem;
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            text-align: center;
+            min-width: 120px;
+        }
+
+        .progress-box span {
+            display: block;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .progress-box big {
+            font-size: 2.2rem;
+            font-weight: 900;
+            display: block;
+            line-height: 1.1;
+        }
+
+        .clearance-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .clearance-card {
+            background: var(--white);
+            border-radius: 18px;
+            padding: 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+            border: 1px solid transparent;
+            transition: var(--trans);
+        }
+
+        .clearance-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+            border-color: #e2e8f0;
+        }
+
+        .dept-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .dept-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .dept-text h3 {
+            margin: 0;
+            font-size: 1rem;
+            color: var(--navy);
+        }
+
+        .dept-text p {
+            margin: 3px 0 0;
+            font-size: 0.8rem;
+            color: #64748b;
+            line-height: 1.4;
+        }
+
+        .status-pill {
+            padding: 8px 14px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .is-cleared {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #6ee7b7;
+        }
+
+        .is-pending {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fca5a5;
+        }
+
+        .icon-circle {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+        }
+
+        .note-card {
+            margin-top: 2rem;
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            padding: 1.2rem;
+            border-radius: 15px;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .note-card p {
+            margin: 0;
+            font-size: 0.85rem;
+            color: #92400e;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 600px) {
+            .hero-flex {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .progress-box {
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            .clearance-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .status-pill {
+                align-self: flex-end;
+            }
+
+            .hero-text h1 {
+                font-size: 1.4rem;
+            }
+        }
+
+        .skeleton {
+            background: linear-gradient(90deg, #ececec 25%, #f5f5f5 50%, #ececec 75%);
+            background-size: 200% 100%;
+            animation: skeleton-loading 1.5s infinite;
+            border-radius: 4px;
+        }
+
+        @keyframes skeleton-loading {
+            0% {
+                background-position: 200% 0;
+            }
+
+            100% {
+                background-position: -200% 0;
+            }
+        }
+
+        .loading-overlay {
+            position: fixed;
+            inset: 0;
+            background: #f4f7fe;
+            z-index: 9999;
+            padding: 20px 15px;
+            animation: fadeOut 0.5s forwards 1.2s;
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #1e3a8a;
+            border-radius: 10px;
+            border: 2px solid #0f172a;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3b82f6;
+            box-shadow: 0 0 10px #3b82f6;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="loading-overlay">
+        <div class="clearance-container" style="max-width: 850px; margin: 0 auto;">
+
+            <div class="skeleton" style="width: 160px; height: 40px; border-radius: 50px; margin-bottom: 1.5rem;"></div>
+
+            <div
+                style="background: white; border-radius: 20px; padding: 2rem; margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+                <div>
+                    <div class="skeleton" style="width: 220px; height: 28px; margin-bottom: 10px;"></div>
+                    <div class="skeleton" style="width: 180px; height: 14px;"></div>
+                </div>
+                <div
+                    style="width: 120px; height: 90px; border-radius: 18px; border: 1px solid #eee; padding: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;">
+                    <div class="skeleton" style="width: 50px; height: 10px;"></div>
+                    <div class="skeleton" style="width: 70px; height: 35px;"></div>
+                </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                <div
+                    style="background: white; border-radius: 18px; padding: 1.2rem; display: flex; justify-content: space-between; align-items: center;">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div class="skeleton" style="width: 48px; height: 48px; border-radius: 14px;"></div>
+                        <div>
+                            <div class="skeleton" style="width: 150px; height: 16px; margin-bottom: 8px;"></div>
+                            <div class="skeleton" style="width: 250px; height: 12px;"></div>
+                        </div>
+                    </div>
+                    <div class="skeleton" style="width: 90px; height: 32px; border-radius: 12px;"></div>
+                </div>
+
+                <div
+                    style="background: white; border-radius: 18px; padding: 1.2rem; display: flex; justify-content: space-between; align-items: center;">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div class="skeleton" style="width: 48px; height: 48px; border-radius: 14px;"></div>
+                        <div>
+                            <div class="skeleton" style="width: 140px; height: 16px; margin-bottom: 8px;"></div>
+                            <div class="skeleton" style="width: 200px; height: 12px;"></div>
+                        </div>
+                    </div>
+                    <div class="skeleton" style="width: 90px; height: 32px; border-radius: 12px;"></div>
+                </div>
+
+                <div
+                    style="background: white; border-radius: 18px; padding: 1.2rem; display: flex; justify-content: space-between; align-items: center;">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div class="skeleton" style="width: 48px; height: 48px; border-radius: 14px;"></div>
+                        <div>
+                            <div class="skeleton" style="width: 180px; height: 16px; margin-bottom: 8px;"></div>
+                            <div class="skeleton" style="width: 280px; height: 12px;"></div>
+                        </div>
+                    </div>
+                    <div class="skeleton" style="width: 90px; height: 32px; border-radius: 12px;"></div>
+                </div>
+
+                <div
+                    style="background: white; border-radius: 18px; padding: 1.2rem; display: flex; justify-content: space-between; align-items: center;">
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <div class="skeleton" style="width: 48px; height: 48px; border-radius: 14px;"></div>
+                        <div>
+                            <div class="skeleton" style="width: 130px; height: 16px; margin-bottom: 8px;"></div>
+                            <div class="skeleton" style="width: 210px; height: 12px;"></div>
+                        </div>
+                    </div>
+                    <div class="skeleton" style="width: 90px; height: 32px; border-radius: 12px;"></div>
+                </div>
+            </div>
+
+            <div
+                style="margin-top: 2rem; background: white; border: 1px solid #eee; padding: 1.2rem; border-radius: 15px; display: flex; gap: 12px;">
+                <div class="skeleton" style="width: 24px; height: 24px; border-radius: 50%;"></div>
+                <div style="flex: 1;">
+                    <div class="skeleton" style="width: 100%; height: 12px; margin-bottom: 8px;"></div>
+                    <div class="skeleton" style="width: 60%; height: 12px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="clearance-container">
+        <a href="../main.html" class="back-link">← Back to Dashboard</a>
+
+        <div class="status-hero">
+            <div class="hero-flex">
+                <div class="hero-text">
+                    <h1>Clearance Status</h1>
+                    <p>SY 2025 - 2026 • 2nd Semester</p>
+                </div>
+                <div class="progress-box">
+                    <span>Overall</span>
+                    <big>60%</big>
+                    <small style="font-size: 0.6rem; opacity: 0.9;">3 of 5 Departments</small>
+                </div>
+            </div>
+            <div class="hero-progress-track">
+                <div class="hero-progress-fill"></div>
+            </div>
+        </div>
+
+        <div class="clearance-grid">
+            <div class="clearance-card">
+                <div class="dept-info">
+                    <div class="dept-icon" style="background: #eff6ff; color: #3b82f6;">📚</div>
+                    <div class="dept-text">
+                        <h3>School Library</h3>
+                        <p>No unreturned books or pending fines.</p>
+                    </div>
+                </div>
+                <div class="status-pill is-cleared">
+                    <span class="icon-circle" style="background: var(--success);">✓</span> Cleared
+                </div>
+            </div>
+
+            <div class="clearance-card">
+                <div class="dept-info">
+                    <div class="dept-icon" style="background: #fdf2f8; color: #db2777;">🔬</div>
+                    <div class="dept-text">
+                        <h3>Science & ICT Lab</h3>
+                        <p>Equipment accountability and maintenance fee.</p>
+                    </div>
+                </div>
+                <div class="status-pill is-cleared">
+                    <span class="icon-circle" style="background: var(--success);">✓</span> Cleared
+                </div>
+            </div>
+
+            <div class="clearance-card" style="border-left: 5px solid var(--danger);">
+                <div class="dept-info">
+                    <div class="dept-icon" style="background: #fff1f2; color: #e11d48;">📄</div>
+                    <div class="dept-text">
+                        <h3>Office of the Registrar</h3>
+                        <p>Missing: Original Form 137 (Grade 10 Transcript).</p>
+                    </div>
+                </div>
+                <div class="status-pill is-pending">
+                    <span class="icon-circle" style="background: var(--danger);">!</span> Pending
+                </div>
+            </div>
+
+            <div class="clearance-card" style="border-left: 5px solid var(--danger);">
+                <div class="dept-info">
+                    <div class="dept-icon" style="background: #f0fdf4; color: #16a34a;">💰</div>
+                    <div class="dept-text">
+                        <h3>Finance Office</h3>
+                        <p>Balance from 2nd Quarter Miscellaneous fees.</p>
+                    </div>
+                </div>
+                <div class="status-pill is-pending">
+                    <span class="icon-circle" style="background: var(--danger);">!</span> Pending
+                </div>
+            </div>
+
+            <div class="clearance-card">
+                <div class="dept-info">
+                    <div class="dept-icon" style="background: #f5f3ff; color: #7c3aed;">👨‍🏫</div>
+                    <div class="dept-text">
+                        <h3>Class Adviser</h3>
+                        <p>Final requirements and community service hours.</p>
+                    </div>
+                </div>
+                <div class="status-pill is-cleared">
+                    <span class="icon-circle" style="background: var(--success);">✓</span> Cleared
+                </div>
+            </div>
+        </div>
+
+        <div class="note-card">
+            <span style="font-size: 1.2rem;">⚠️</span>
+            <p><strong>Note:</strong> Please settle all pending requirements at the respective offices before the final
+                examination week to avoid delays in enrollment or graduation.</p>
+        </div>
+    </div>
+
+</body>
+
+</html>

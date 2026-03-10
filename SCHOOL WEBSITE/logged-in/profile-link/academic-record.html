@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Records | OSHS</title>
+    <link rel="icon" type="image/png" href="../../images/favicon-32x32.png?v=2">
+
+    <style>
+        :root {
+            --blue: #1a56db;
+            --navy: #1e3a8a;
+            --white: #ffffff;
+            --slate: #64748b;
+            --light-slate: #f1f5f9;
+            --radius-lg: 20px;
+            --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        body {
+            background: #f4f7fe;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 20px 15px;
+            color: #334155;
+        }
+
+        .records-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--blue);
+            font-weight: 700;
+            text-decoration: none;
+            background: var(--white);
+            padding: 10px 22px;
+            border-radius: 50px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .back-link:hover {
+            transform: translateX(-5px);
+            background: var(--blue);
+            color: white;
+        }
+
+        .records-hero {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            margin-bottom: 25px;
+            color: white;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .stat-group {
+            display: flex;
+            gap: 15px;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(8px);
+            padding: 15px 22px;
+            border-radius: 18px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            min-width: 140px;
+        }
+
+        .stat-card small {
+            display: block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            opacity: 0.8;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-card big {
+            font-size: 1.2rem;
+            font-weight: 900;
+            display: none;
+            line-height: 1;
+        }
+
+        .transcript-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            margin-bottom: 25px;
+            border: 1px solid rgba(0, 0, 0, 0.02);
+        }
+
+        .controls {
+            background: #f8fafc;
+            padding: 18px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            border-bottom: 1px solid #edf2f7;
+        }
+
+        .tab-box {
+            display: flex;
+            background: #e2e8f0;
+            padding: 5px;
+            border-radius: 14px;
+        }
+
+        .tab-label {
+            flex: 1;
+            padding: 12px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            border-radius: 10px;
+            text-align: center;
+            transition: 0.3s;
+            color: var(--slate);
+        }
+
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 750px;
+        }
+
+        th {
+            padding: 18px 15px;
+            background: #f8fafc;
+            color: var(--slate);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 800;
+            border-bottom: 2px solid #edf2f7;
+        }
+
+        td {
+            padding: 18px 15px;
+            border-bottom: 1px solid #f1f5f9;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+
+        .subj-col {
+            text-align: left;
+            width: 35%;
+            padding-left: 30px;
+        }
+
+        .subj-name {
+            font-weight: 700;
+            color: var(--navy);
+            display: block;
+        }
+
+        .major-tag {
+            font-size: 0.6rem;
+            color: #d97706;
+            text-transform: uppercase;
+            font-weight: 900;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .grade-num {
+            font-weight: 800;
+            color: var(--blue);
+        }
+
+        .honor-badge {
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            display: none;
+        }
+
+        .with-honors {
+            background: #eff6ff;
+            color: var(--blue);
+            border: 1px solid #bfdbfe;
+        }
+
+        .pending-badge {
+            background: #f1f5f9;
+            color: var(--slate);
+            border: 1px solid #cbd5e1;
+        }
+
+        .status-badge {
+            padding: 5px 12px;
+            border-radius: 50px;
+            font-size: 0.65rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .status-passed {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .status-ongoing {
+            background: #fef3c7;
+            color: #b45309;
+        }
+
+        .attendance-card {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-lg);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .attendance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .att-stat {
+            padding: 20px;
+            border-radius: 18px;
+            background: #f8fafc;
+            border: 1px solid #edf2f7;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .att-stat:hover {
+            background: #f1f5f9;
+        }
+
+        .att-stat span {
+            display: block;
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--navy);
+            margin-bottom: 2px;
+        }
+
+        .att-stat label {
+            font-size: 0.7rem;
+            font-weight: 800;
+            color: var(--slate);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .att-note {
+            display: block;
+            font-size: 10px;
+            color: #94a3b8;
+            font-weight: 600;
+            margin-top: 6px;
+            font-style: italic;
+        }
+
+        .page-footer {
+            margin-top: 40px;
+            padding-top: 25px;
+            border-top: 1px solid #e2e8f0;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            padding: 8px 24px;
+            background: #f8fafc;
+            border-radius: 50px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .footer-year {
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: var(--navy);
+            letter-spacing: 1px;
+        }
+
+        .footer-divider {
+            width: 4px;
+            height: 4px;
+            background: #cbd5e1;
+            border-radius: 50%;
+        }
+
+        .footer-tag {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--slate);
+            text-transform: uppercase;
+        }
+
+        .q1,
+        .q2,
+        .q3,
+        .q4,
+        .s1-body,
+        .s2-body,
+        .t1,
+        .t2,
+        .t3,
+        .t4 {
+            display: none !important;
+        }
+
+        #sem1:checked~#q-a:checked~.records-hero .rank-q1,
+        #sem1:checked~#q-b:checked~.records-hero .rank-q2,
+        #sem2:checked~#q-a:checked~.records-hero .rank-q3,
+        #sem2:checked~#q-b:checked~.records-hero .rank-q4 {
+            display: block !important;
+        }
+
+        #sem1:checked~#q-a:checked~.records-hero .gwa-q1,
+        #sem1:checked~#q-b:checked~.records-hero .gwa-q2,
+        #sem2:checked~#q-a:checked~.records-hero .gwa-q3,
+        #sem2:checked~#q-b:checked~.records-hero .gwa-q4 {
+            display: block !important;
+        }
+
+        #sem1:checked~.transcript-card .badge-s1,
+        #sem2:checked~#q-a:checked~.transcript-card .badge-q3,
+        #sem2:checked~#q-b:checked~.transcript-card .badge-q4 {
+            display: inline-block !important;
+        }
+
+        #sem1:checked~.transcript-card .s1-body,
+        #sem2:checked~.transcript-card .s2-body {
+            display: table-row-group !important;
+        }
+
+        #sem1:checked~.transcript-card .s1-btn,
+        #sem2:checked~.transcript-card .s2-btn,
+        #q-a:checked~.transcript-card .qa-btn,
+        #q-b:checked~.transcript-card .qb-btn {
+            background: var(--white) !important;
+            color: var(--blue) !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        #sem1:checked~#q-a:checked~.transcript-card .q1,
+        #sem1:checked~#q-b:checked~.transcript-card .q2,
+        #sem2:checked~#q-a:checked~.transcript-card .q3,
+        #sem2:checked~#q-b:checked~.transcript-card .q4 {
+            display: table-cell !important;
+        }
+
+        #sem1:checked~.transcript-card .t1,
+        #sem1:checked~.transcript-card .t2,
+        #sem2:checked~.transcript-card .t3,
+        #sem2:checked~.transcript-card .t4 {
+            display: inline !important;
+        }
+
+        .footer-row {
+            background: #f8fafc;
+            font-weight: 900;
+            color: var(--navy);
+        }
+
+        .skeleton {
+            background: linear-gradient(90deg, #ececec 25%, #f5f5f5 50%, #ececec 75%);
+            background-size: 200% 100%;
+            animation: skeleton-loading 1.5s infinite;
+            border-radius: 4px;
+        }
+
+        @keyframes skeleton-loading {
+            0% {
+                background-position: 200% 0;
+            }
+
+            100% {
+                background-position: -200% 0;
+            }
+        }
+
+        .loading-overlay {
+            position: fixed;
+            inset: 0;
+            background: #f4f7fe;
+            z-index: 9999;
+            padding: 20px 15px;
+            animation: fadeOut 0.5s forwards 1.2s;
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #1e3a8a;
+            border-radius: 10px;
+            border: 2px solid #0f172a;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3b82f6;
+            box-shadow: 0 0 10px #3b82f6;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="loading-overlay">
+        <div class="records-container" style="max-width: 900px; margin: 20px auto; padding: 0 15px;">
+
+            <div class="skeleton" style="width: 160px; height: 40px; border-radius: 50px; margin-bottom: 1.5rem;"></div>
+
+            <div
+                style="padding: 30px; border: 1px solid #eee; border-radius: 20px; background: #fff; display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+                <div>
+                    <div class="skeleton" style="width: 200px; height: 30px; margin-bottom: 10px;"></div>
+                    <div class="skeleton" style="width: 280px; height: 15px;"></div>
+                </div>
+                <div style="display: flex; gap: 15px;">
+                    <div class="skeleton" style="width: 140px; height: 75px; border-radius: 18px;"></div>
+                    <div class="skeleton" style="width: 140px; height: 75px; border-radius: 18px;"></div>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 25px;">
+                <div class="skeleton" style="height: 55px; border-radius: 14px;"></div>
+                <div class="skeleton" style="height: 55px; border-radius: 14px;"></div>
+            </div>
+
+            <div
+                style="border: 1px solid #eee; border-radius: 20px; background: #fff; overflow: hidden; margin-bottom: 25px;">
+                <div class="skeleton" style="width: 100%; height: 55px; border-radius: 0;"></div>
+                <div style="padding: 20px;">
+                    <div class="skeleton" style="width: 100%; height: 45px; margin-bottom: 12px;"></div>
+                    <div class="skeleton" style="width: 100%; height: 45px; margin-bottom: 12px;"></div>
+                    <div class="skeleton" style="width: 100%; height: 45px; margin-bottom: 12px;"></div>
+                    <div class="skeleton" style="width: 100%; height: 45px; margin-bottom: 12px;"></div>
+                    <div class="skeleton" style="width: 100%; height: 45px;"></div>
+                </div>
+            </div>
+
+            <div style="padding: 30px; border: 1px solid #eee; border-radius: 20px; background: #fff;">
+                <div class="skeleton" style="width: 180px; height: 20px; margin-bottom: 20px;"></div>
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;">
+                    <div class="skeleton" style="height: 85px; border-radius: 18px;"></div>
+                    <div class="skeleton" style="height: 85px; border-radius: 18px;"></div>
+                    <div class="skeleton" style="height: 85px; border-radius: 18px;"></div>
+                    <div class="skeleton" style="height: 85px; border-radius: 18px;"></div>
+                </div>
+            </div>
+
+            <div class="skeleton"
+                style="width: 250px; height: 35px; border-radius: 50px; margin: 40px auto 0; display: block;"></div>
+        </div>
+    </div>
+
+    <div class="records-container">
+        <a href="../main.html" class="back-link">← Back to Dashboard</a>
+
+        <input type="radio" name="sem" id="sem1" checked hidden>
+        <input type="radio" name="sem" id="sem2" hidden>
+        <input type="radio" name="q" id="q-a" checked hidden>
+        <input type="radio" name="q" id="q-b" hidden>
+
+        <div class="records-hero">
+            <div class="student-info">
+                <h2 style="margin:0; font-size: 1.8rem; letter-spacing: -0.5px;">Justin James Anyayahan</h2>
+                <p style="margin:6px 0 0; opacity:0.85; font-weight: 500; font-size: 0.95rem;">Grade 11 - ICT | LRN:
+                    123456789012</p>
+            </div>
+            <div class="stat-group">
+                <div class="stat-card">
+                    <small>Average</small>
+                    <big class="gwa-q1">92.71</big>
+                    <big class="gwa-q2">94.43</big>
+                    <big class="gwa-q3">94.38</big>
+                    <big class="gwa-q4">--</big>
+                </div>
+                <div class="stat-card">
+                    <small>Rank Status</small>
+                    <big class="rank-q1">WITH HONORS</big>
+                    <big class="rank-q2">WITH HONORS</big>
+                    <big class="rank-q3">WITH HONORS</big>
+                    <big class="rank-q4">PENDING</big>
+                </div>
+            </div>
+        </div>
+
+        <div class="transcript-card">
+            <div class="controls">
+                <div class="tab-box">
+                    <label for="sem1" class="tab-label s1-btn">1st Semester</label>
+                    <label for="sem2" class="tab-label s2-btn">2nd Semester</label>
+                </div>
+                <div class="tab-box">
+                    <label for="q-a" class="tab-label qa-btn">
+                        <span class="t1">1st Quarter</span><span class="t3">3rd Quarter</span>
+                    </label>
+                    <label for="q-b" class="tab-label qb-btn">
+                        <span class="t2">2nd Quarter</span><span class="t4">4th Quarter</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="subj-col">Subject Title</th>
+                            <th class="q1">Q1</th>
+                            <th class="q2">Q2</th>
+                            <th class="q3">Q3</th>
+                            <th class="q4">Q4</th>
+                            <th style="width: 15%;">Final</th>
+                            <th style="width: 20%;">Remarks</th>
+                        </tr>
+                    </thead>
+
+                    <tbody class="s1-body">
+                        <tr>
+                            <td class="subj-col"><span class="major-tag">Specialized</span><span
+                                    class="subj-name">Computer Programming 1</span></td>
+                            <td class="q1">94</td>
+                            <td class="q2">96</td>
+                            <td class="grade-num">95</td>
+                            <td><span class="status-badge status-passed">Passed</span></td>
+                        </tr>
+                        <tr>
+                            <td class="subj-col"><span class="subj-name">Oral Communication</span></td>
+                            <td class="q1">92</td>
+                            <td class="q2">94</td>
+                            <td class="grade-num">93</td>
+                            <td><span class="status-badge status-passed">Passed</span></td>
+                        </tr>
+                        <tr>
+                            <td class="subj-col"><span class="subj-name">General Mathematics</span></td>
+                            <td class="q1">90</td>
+                            <td class="q2">92</td>
+                            <td class="grade-num">91</td>
+                            <td><span class="status-badge status-passed">Passed</span></td>
+                        </tr>
+                        <tr>
+                            <td class="subj-col"><span class="subj-name">EAPP</span></td>
+                            <td class="q1">94</td>
+                            <td class="q2">96</td>
+                            <td class="grade-num">95</td>
+                            <td><span class="status-badge status-passed">Passed</span></td>
+                        </tr>
+                        <tr>
+                            <td class="subj-col"><span class="subj-name">Physical Education 1</span></td>
+                            <td class="q1">95</td>
+                            <td class="q2">95</td>
+                            <td class="grade-num">95</td>
+                            <td><span class="status-badge status-passed">Passed</span></td>
+                        </tr>
+                        <tr>
+                            <td class="subj-col"><span class="subj-name">Komunikasyon</span></td>
+                            <td class="q1">91</td>
+                            <td class="q2">93</td>
+                            <td class="grade-num">92</td>
+                            <td><span class="status-badge status-passed">Passed</span></td>
+                        </tr>
+                        <tr>
+                            <td class="subj-col"><span class="subj-name">Earth and Life Science</span></td>
+                            <td class="q1">93</td>
+                            <td class="q2">95</td>
+                            <td class="grade-num">94</td>
+                            <td><span class="status-badge status-passed">Passed</span></td>
+                        </tr>
+                        <tr class="footer-row">
+                            <td class="subj-col">1ST SEMESTER GWA</td>
+                            <td class="q1">92.71</td>
+                            <td class="q2">94.43</td>
+                            <td style="color:var(--blue)">93.57</td>
+                            <td><span class="honor-badge with-honors badge-s1">With Honors</span></td>
+                        </tr>
+                    </tbody>
+
+                    <tbody class="s2-body">
+                        <tr>
+                            <td class="subj-col"><span class="major-tag">Specialized</span><span
+                                    class="subj-name">Computer Programming 2</span></td>
+                            <td class="q3">96</td>
+                            <td class="q4">--</td>
+                            <td class="grade-num">--</td>
+                            <td><span class="status-badge status-ongoing">Ongoing</span></td>
+                        </tr>
+                        <tr>
+                            <td class="subj-col"><span class="subj-name">Reading and Writing</span></td>
+                            <td class="q3">94</td>
+                            <td class="q4">--</td>
+                            <td class="grade-num">--</td>
+                            <td><span class="status-badge status-ongoing">Ongoing</span></td>
+                        </tr>
+                        <tr>
+                            <td class="subj-col"><span class="subj-name">Physical Science</span></td>
+                            <td class="q3">92</td>
+                            <td class="q4">--</td>
+                            <td class="grade-num">--</td>
+                            <td><span class="status-badge status-ongoing">Ongoing</span></td>
+                        </tr>
+                        <tr>
+                            <td class="subj-col"><span class="subj-name">Statistics & Probability</span></td>
+                            <td class="q3">93</td>
+                            <td class="q4">--</td>
+                            <td class="grade-num">--</td>
+                            <td><span class="status-badge status-ongoing">Ongoing</span></td>
+                        </tr>
+                        <tr>
+                            <td class="subj-col"><span class="subj-name">Pagbasa at Pagsulat</span></td>
+                            <td class="q3">95</td>
+                            <td class="q4">--</td>
+                            <td class="grade-num">--</td>
+                            <td><span class="status-badge status-ongoing">Ongoing</span></td>
+                        </tr>
+                        <tr>
+                            <td class="subj-col"><span class="subj-name">Practical Research 1</span></td>
+                            <td class="q3">94</td>
+                            <td class="q4">--</td>
+                            <td class="grade-num">--</td>
+                            <td><span class="status-badge status-ongoing">Ongoing</span></td>
+                        </tr>
+                        <tr>
+                            <td class="subj-col"><span class="subj-name">Physical Education 2</span></td>
+                            <td class="q3">96</td>
+                            <td class="q4">--</td>
+                            <td class="grade-num">--</td>
+                            <td><span class="status-badge status-ongoing">Ongoing</span></td>
+                        </tr>
+                        <tr>
+                            <td class="subj-col"><span class="subj-name">Filipino</span></td>
+                            <td class="q3">95</td>
+                            <td class="q4">--</td>
+                            <td class="grade-num">--</td>
+                            <td><span class="status-badge status-ongoing">Ongoing</span></td>
+                        </tr>
+                        <tr class="footer-row">
+                            <td class="subj-col">2ND SEMESTER GWA</td>
+                            <td class="q3">94.38</td>
+                            <td class="q4">--</td>
+                            <td style="color:var(--blue)">TBA</td>
+                            <td>
+                                <span class="honor-badge with-honors badge-q3">With Honors</span>
+                                <span class="honor-badge pending-badge badge-q4">Pending Q4</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="attendance-card">
+            <h3
+                style="margin: 0 0 15px 0; color: var(--navy); font-size: 1.1rem; font-weight: 800; display: flex; align-items: center; gap: 10px;">
+                Attendance Summary
+            </h3>
+            <div class="attendance-grid">
+                <div class="att-stat"><label>School Days</label><span>203</span></div>
+                <div class="att-stat"><label>Present</label><span style="color: #15803d;">196</span></div>
+                <div class="att-stat">
+                    <label>Total Absences</label>
+                    <span style="color: #b91c1c;">7</span>
+                    <small class="att-note">(5 Base + 2 from Late)</small>
+                </div>
+                <div class="att-stat">
+                    <label>Total Lates</label>
+                    <span style="color: #b45309;">7</span>
+                    <small class="att-note">3 Late = 1 Absent</small>
+                </div>
+            </div>
+        </div>
+
+        <footer class="page-footer">
+            <div class="footer-content">
+                <span class="footer-year">AY 2025-2026</span>
+                <div class="footer-divider"></div>
+                <span class="footer-tag">Official Academic Record</span>
+            </div>
+        </footer>
+    </div>
+
+</body>
+
+</html>

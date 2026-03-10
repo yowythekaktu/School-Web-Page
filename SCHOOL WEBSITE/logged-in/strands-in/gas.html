@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> GAS | OSHS</title>
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="icon" type="image/png" href="../../images/favicon-32x32.png?v=2">
+    <style>
+        .gallery-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px;
+            height: 450px;
+            overflow: hidden;
+            margin: 2rem 0;
+        }
+
+        .pentagon-spinner {
+            position: relative;
+            width: 220px;
+            height: 280px;
+            transform-style: preserve-3d;
+            animation: rotatePentagon 20s linear infinite;
+        }
+
+        .pentagon-item {
+            position: absolute;
+            width: 220px;
+            height: 280px;
+            left: 0;
+            top: 0;
+            border: 4px solid #6366f1;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #000;
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+            backface-visibility: visible;
+        }
+
+        .pentagon-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.9;
+            transition: 0.3s;
+        }
+
+        .pentagon-item:hover img {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        .pentagon-item:nth-child(1) {
+            transform: rotateY(0deg) translateZ(190px);
+        }
+
+        .pentagon-item:nth-child(2) {
+            transform: rotateY(72deg) translateZ(190px);
+        }
+
+        .pentagon-item:nth-child(3) {
+            transform: rotateY(144deg) translateZ(190px);
+        }
+
+        .pentagon-item:nth-child(4) {
+            transform: rotateY(216deg) translateZ(190px);
+        }
+
+        .pentagon-item:nth-child(5) {
+            transform: rotateY(288deg) translateZ(190px);
+        }
+
+        @keyframes rotatePentagon {
+            from {
+                transform: rotateY(0deg);
+            }
+
+            to {
+                transform: rotateY(360deg);
+            }
+        }
+
+        .career-card {
+            text-align: center;
+            padding: 35px 25px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s forwards ease-out;
+        }
+
+        .career-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            background: #ffffff;
+            border-color: #6366f1;
+            box-shadow: 0 20px 40px rgba(16, 185, 129, 0.15);
+        }
+
+        .career-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #6366f1, #383be1);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+            transform-origin: center;
+        }
+
+        .career-card:hover::after {
+            transform: scaleX(1);
+        }
+
+        .career-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: inline-block;
+            transition: transform 0.5s ease;
+        }
+
+        .career-card:hover .career-icon {
+            transform: rotateY(360deg);
+        }
+
+        .career-card h4 {
+            color: #3730a3;
+            margin-bottom: 12px;
+            font-size: 1.25rem;
+            transition: color 0.3s ease;
+        }
+
+        .career-card p {
+            font-size: 0.9rem;
+            color: #64748b;
+            line-height: 1.5;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .career-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .career-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .career-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .career-card:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="loading-overlay">
+        <div
+            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4rem; padding: 1rem 2rem;">
+            <div class="skeleton" style="width: 150px; height: 30px;"></div>
+            <div style="display: flex; gap: 20px;">
+                <div class="skeleton" style="width: 60px; height: 20px;"></div>
+                <div class="skeleton" style="width: 80px; height: 20px;"></div>
+                <div class="skeleton" style="width: 60px; height: 20px;"></div>
+            </div>
+        </div>
+
+        <div class="container" style="max-width: 1100px; margin: 0 auto; padding: 0 2rem;">
+            <div class="skeleton" style="width: 300px; height: 35px; margin-bottom: 1.5rem;"></div>
+            <div class="skeleton" style="width: 100%; height: 15px; margin-bottom: 10px;"></div>
+            <div class="skeleton" style="width: 90%; height: 15px; margin-bottom: 3rem;"></div>
+
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-bottom: 4rem;">
+                <div>
+                    <div class="skeleton" style="width: 150px; height: 25px; margin-bottom: 1rem;"></div>
+                    <div class="skeleton" style="width: 80%; height: 12px; margin-bottom: 10px;"></div>
+                    <div class="skeleton" style="width: 85%; height: 12px; margin-bottom: 10px;"></div>
+                </div>
+                <div>
+                    <div class="skeleton" style="width: 150px; height: 25px; margin-bottom: 1rem;"></div>
+                    <div class="skeleton" style="width: 80%; height: 12px; margin-bottom: 10px;"></div>
+                    <div class="skeleton" style="width: 85%; height: 12px; margin-bottom: 10px;"></div>
+                </div>
+            </div>
+
+            <div class="skeleton" style="width: 280px; height: 35px; margin-bottom: 2rem;"></div>
+            <div style="display: flex; gap: 15px;">
+                <div class="skeleton" style="flex: 1; height: 250px; border-radius: 8px;"></div>
+                <div class="skeleton" style="flex: 1; height: 250px; border-radius: 8px;"></div>
+                <div class="skeleton" style="flex: 1; height: 250px; border-radius: 8px;"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <header>
+        <nav>
+            <div class="logo" style="font-size: 1.5rem;"><strong><img src="../../images/favicon-32x32.png"
+                        style="padding-right: 5px; position: relative; top: 6px;"><a href="../main.html"
+                        style="text-decoration: none"> Obando Senior High School</a></strong></div>
+            <ul class="nav-links">
+                <li><a href="../main.html">Home</a></li>
+                <li class="strand-dropdown"><a>Strands<span class="dropdown-icon">▼</span></a>
+                    <ul class="dropdown-content">
+                        <li><a href="ict.html" data-tooltip="Information and Communication Technology">ICT</a></li>
+                        <li><a href="he.html" data-tooltip="Home Economics">HE</a></li>
+                        <li><a href="abm.html" data-tooltip="Accountancy, Business, and Management">ABM</a></li>
+                        <li><a href="gas.html" data-tooltip="General Academic Strand">GAS</a></li>
+                        <li><a href="stem.html"
+                                data-tooltip="Science, Technology, Engineering, and Mathematics">STEM</a></li>
+                        <li><a href="humss.html" data-tooltip="Humanities and Social Sciences">HUMSS</a></li>
+                    </ul>
+                </li>
+                <li><a href="../admission-steps-in/information.html">Admission</a></li>
+                <li class="profile">
+                    <label for="profile-toggle" class="profile-nav-btn">
+                        <div class="nav-avatar-wrapper">
+                            <img src="https://ui-avatars.com/api/?name=Justin+James+Anyayahan&background=0033a0&color=fff"
+                                alt="Profile" class="nav-avatar-img">
+                            <span class="status-indicator"></span>
+                        </div>
+                    </label>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section style="padding: 2rem 0;">
+            <h2 style="color: #3730a3; display: inline-block; padding-bottom: 5px; margin-bottom: 1.5rem;">Strand
+                Overview: GAS</h2>
+            <p style="font-size: 1.1rem; line-height: 1.6; color: #475569;">The <strong style="color: #6366f1;">General
+                    Academic Strand (GAS)</strong> is designed for students who are
+                exploring various fields of study. It provides a balanced curriculum that combines electives from
+                different strands to prepare students for any college degree.</p>
+
+            <div
+                style="margin-top: 2.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px;">
+                <div
+                    style="background: #ffffff; padding: 25px; border-radius: 15px; border-top: 5px solid #6366f1; box-shadow: 0 10px 25px rgba(0,0,0,0.05); transition: transform 0.3s ease;">
+                    <h3 style="margin-top: 0; display: flex; align-items: center; gap: 10px; color: #3730a3;">
+                        <span style="background: #e0e7ff; padding: 8px; border-radius: 10px;">🧩</span> Skills Developed
+                    </h3>
+                    <ul style="list-style: none; padding: 0; margin: 15px 0 0 0;">
+                        <li
+                            style="background: #f8fafc; margin-bottom: 10px; padding: 12px 15px; border-radius: 8px; border-left: 3px solid #6366f1; font-weight: 500; color: #334155;">
+                            Versatile academic writing</li>
+                        <li
+                            style="background: #f8fafc; margin-bottom: 10px; padding: 12px 15px; border-radius: 8px; border-left: 3px solid #6366f1; font-weight: 500; color: #334155;">
+                            Holistic critical thinking</li>
+                        <li
+                            style="background: #f8fafc; padding: 12px 15px; border-radius: 8px; border-left: 3px solid #6366f1; font-weight: 500; color: #334155;">
+                            Multi-disciplinary research</li>
+                    </ul>
+                </div>
+
+                <div
+                    style="background: #ffffff; padding: 25px; border-radius: 15px; border-top: 5px solid #94a3b8; box-shadow: 0 10px 25px rgba(0,0,0,0.05);">
+                    <h3 style="margin-top: 0; display: flex; align-items: center; gap: 10px; color: #1e293b;">
+                        <span style="background: #f1f5f9; padding: 8px; border-radius: 10px;">🛡️</span> Subject
+                        Highlights
+                    </h3>
+                    <ul style="list-style: none; padding: 0; margin: 15px 0 0 0;">
+                        <li
+                            style="background: #f1f5f9; margin-bottom: 10px; padding: 12px 15px; border-radius: 8px; border: 1px solid #cbd5e1; font-weight: 600; color: #475569; text-align: center;">
+                            Disaster Readiness & Risk Reduction</li>
+                        <li
+                            style="background: #f1f5f9; margin-bottom: 10px; padding: 12px 15px; border-radius: 8px; border: 1px solid #cbd5e1; font-weight: 600; color: #475569; text-align: center;">
+                            Organization and Management</li>
+                        <li
+                            style="background: #f1f5f9; padding: 12px 15px; border-radius: 8px; border: 1px solid #cbd5e1; font-weight: 600; color: #475569; text-align: center;">
+                            Trends, Networks & Critical Thinking</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section style="margin-top: 4rem;">
+            <h2 style="color: #3730a3; margin-bottom: 2rem;">Future Career Pathways</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
+                <div class="career-card">
+                    <div class="career-icon">👩‍🏫</div>
+                    <h4>Education</h4>
+                    <p>Pre-school to Secondary Teacher, Academic Coordinator, Researcher</p>
+                </div>
+                <div class="career-card">
+                    <div class="career-icon">⚖️</div>
+                    <h4>Public Service</h4>
+                    <p>Public Administrator, Social Worker, Community Development Officer</p>
+                </div>
+                <div class="career-card">
+                    <div class="career-icon">🎨</div>
+                    <h4>Communication Arts</h4>
+                    <p>Journalist, Content Strategist, Public Relations Specialist</p>
+                </div>
+                <div class="career-card">
+                    <div class="career-icon">🌍</div>
+                    <h4>Social Sciences</h4>
+                    <p>Psychologist, Sociologist, Guidance Counselor, Historian</p>
+                </div>
+            </div>
+        </section>
+
+        <section style="margin-top: 4rem; padding: 3rem 2rem; background: #3730a3; border-radius: 20px; color: white;">
+            <div style="text-align: center; margin-bottom: 3rem;">
+                <h3 style="color: #6366f1; font-size: 32px;">Why Choose GAS?</h3>
+                <p style="opacity: 0.9;">The most flexible path for students with diverse interests.</p>
+            </div>
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; text-align: center;">
+                <div>
+                    <h3 style="font-size: 2.5rem; color: #6366f1; margin: 0;">100%</h3>
+                    <p style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">Versatile Path</p>
+                </div>
+                <div>
+                    <h3 style="font-size: 2.5rem; color: #6366f1; margin: 0;">Multi</h3>
+                    <p style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">Disciplinary</p>
+                </div>
+                <div>
+                    <h3 style="font-size: 2.5rem; color: #6366f1; margin: 0;">All</h3>
+                    <p style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">College Courses</p>
+                </div>
+            </div>
+        </section>
+
+        <div style="margin: 5rem 0; text-align: center; position: relative; padding: 0 20px;">
+            <span
+                style="font-size: 8rem; color: #6366f1; opacity: 0.1; position: absolute; top: -50px; left: 50%; transform: translateX(-50%); font-family: serif;">“</span>
+            <h3
+                style="font-style: italic; color: #334155; font-weight: 500; position: relative; z-index: 1; max-width: 800px; margin: 0 auto; line-height: 1.4; font-size: 30px;">
+                The future belongs to those who learn more skills and combine them in creative ways.
+            </h3>
+            <p style="margin-top: 20px; font-weight: 700; color: #3b82f6; letter-spacing: 2px;">— ROBERT GREENE</p>
+        </div>
+
+        <section>
+            <h2 style="color: #3730a3;">Strand Activities and Projects</h2>
+            <p style="margin-bottom: 1.5rem;">The <strong style="color: #6366f1;">GAS</strong> strand offers a versatile
+                curriculum for students
+                still exploring their career paths, providing a balanced mix of humanities and sciences.</p>
+
+            <div class="gallery-container">
+                <div class="pentagon-spinner">
+                    <div class="pentagon-item">
+                        <img src="../../images/strands-images/gas.jpg" alt="">
+                    </div>
+                    <div class="pentagon-item">
+                        <img src="../../images/strands-images/gas2.jpg" alt="">
+                    </div>
+                    <div class="pentagon-item">
+                        <img src="../../images/strands-images/gas3.jpg" alt="">
+                    </div>
+                    <div class="pentagon-item">
+                        <img src="../../images/strands-images/gas4.jpg" alt="">
+                    </div>
+                    <div class="pentagon-item">
+                        <img src="../../images/strands-images/gas5.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer style="margin-top: 5rem;">
+        <div class="container">
+            <div class="footer-content" style="display: flex; flex-wrap: wrap; gap: 50px;">
+
+                <div style="flex: 2 1 300px;">
+                    <h3 style="color: var(--white); margin-bottom: 1rem;">OBANDO <span
+                            style="color: var(--accent-gold);">SHS</span></h3>
+                    <p style="font-size: 0.9rem; color: #e6e6e6;">Dedicated to providing quality, equitable, and
+                        culture-based basic education to the youth of our community. Registered public school under the
+                        Schools Division Office.</p>
+                    <div class="social-links" style="display: flex; gap: 12px; margin-top: 1.5rem;">
+                        <a href="https://www.facebook.com/obandoseniorhighschool" target="_blank" class="social-icon"
+                            title="Follow us on Facebook">
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                            </svg>
+                        </a>
+                        <a href="mailto:OSHS@edu.ph" class="social-icon" title="Email Us">
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M0 3v18h24v-18h-24zm21.518 2l-9.518 7.713-9.518-7.713h19.036zm-19.518 14v-11.817l10 8.104 10-8.104v11.817h-20z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div style="flex: 1 1 150px;">
+                    <h4 style="color: var(--accent-gold); margin-bottom: 1rem;">Navigation</h4>
+                    <ul class="footer-navigation" style="list-style: none; font-size: 0.9rem;">
+                        <li style="margin-bottom: 8px;"><a href="../main.html" style="text-decoration: none;">Home</a>
+                        </li>
+                        <li style="margin-bottom: 8px;"><a href="../admission-steps-in/information.html"
+                                style="text-decoration: none;">Admission</a></li>
+                        <li style="margin-bottom: 8px;"><a href="../faq-in.html" style="text-decoration: none;">FAQ</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div style="flex: 1 1 200px;">
+                    <h4 style="color: var(--accent-gold); margin-bottom: 1rem;">Contact Us</h4>
+                    <p style="font-size: 0.9rem; color: #e6e6e6; margin-bottom: 8px;">📍 Paliwas, Obando, Bulacan</p>
+                    <p style="font-size: 0.9rem; color: #e6e6e6; margin-bottom: 8px;">📞 (02) 8920-1234</p>
+                    <p style="font-size: 0.9rem; color: #e6e6e6;">✉️ OSHS@edu.ph</p>
+                </div>
+            </div>
+
+            <div class="footer-bottom"
+                style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #424242; text-align: center; color: #e6e6e6; font-size: 0.8rem;">
+                &copy; OSHS. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <input type="checkbox" id="profile-toggle" style="display:none;">
+    <div class="profile-sidebar-overlay">
+        <label for="profile-toggle" class="overlay-close-area"></label>
+        <div class="profile-card">
+            <label for="profile-toggle" class="close-btn">&times;</label>
+            <div class="profile-header">
+                <div class="avatar-edit-container">
+                    <img src="https://ui-avatars.com/api/?name=Justin+James+Anyayahan&background=0033a0&color=fff"
+                        class="main-profile-img">
+                    <label for="file-upload" class="camera-icon-btn">📷</label>
+                    <input type="file" id="file-upload" style="display:none;">
+                </div>
+                <h3>Justin James Anyayahan</h3>
+                <p>Grade 11 - ICT</p>
+            </div>
+
+            <div class="profile-body">
+                <div style="margin: 5px 0 20px 0;">
+                    <span
+                        style="background: #dcfce7; color: #166534; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; border: 1px solid #bbf7d0;">
+                        ● Enrolled
+                    </span>
+
+                    <div class="profile-info-item">
+                        <small>Currently active in:</small>
+                        <div class="club-tags-container">
+                            <span class="club-tag"><b>Member</b> | ICT Club</span>
+                            <span class="club-tag"><b>Member</b> | Sports Club</span>
+                        </div>
+                    </div>
+                    <div class="profile-info-item">
+                        <small>Learner Reference Number</small>
+                        <p>123456789012</p>
+                        <small>Email</small>
+                        <p>justinjamesanyayahan@gmail.com</p>
+                    </div>
+                    <div class="profile-info-item">
+                        <small>Strand & Section</small>
+                        <p>TVL - ICT 11-A</p>
+                    </div>
+                    <hr class="profile-divider">
+                    <ul class="profile-links">
+                        <li><a href="../profile-link/academic-record.html">Academic Records</a></li>
+                        <li><a href="../profile-link/clearance.html">Clearance Status</a></li>
+                        <li><a href="../../index.html" style="color: #dc3545;">Sign Out</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+</body>
+
+</html>

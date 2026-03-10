@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Successful | OSHS</title>
+    <style>
+        :root {
+            --blue: #1a56db;
+            --purple: #7e3af2;
+            --pink: #db2777;
+            --cyan: #06b6d4;
+            --deped-blue: #0038a8;
+            --white: #ffffff;
+            --radius-lg: 16px;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f3f4f6;
+        }
+
+        .form-container {
+            max-width: 500px;
+            margin: 2rem auto;
+            padding: 3rem;
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            box-shadow: 0 16px 60px rgba(26, 86, 219, 0.15);
+            border: 1px solid rgba(26, 86, 219, 0.1);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s forwards;
+        }
+
+        .form-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--blue), var(--cyan), var(--purple), var(--pink));
+        }
+
+        .success-checkmark-circle {
+            background: #e6f4ea;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            transform: scale(0);
+            position: relative;
+            animation: checkPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 1.2s forwards;
+        }
+
+        .success-checkmark-circle::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            z-index: -1;
+            opacity: 0;
+            box-shadow: 0 -40px #ffcf10, 30px -30px #ff8c00, 40px 0 #1e8e3e, 30px 30px #3b82f6, 0 40px #a855f7, -30px 30px #ec4899, -40px 0 #ef4444;
+            animation: confettiBurst 0.8s ease-out 1.5s forwards;
+        }
+
+        .success-checkmark-circle span {
+            color: #1e8e3e;
+            font-size: 3rem;
+        }
+
+        .reference-container {
+            background: #ffffff;
+            padding: 1.2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(26, 86, 219, 0.08);
+            border: 1px solid rgba(26, 86, 219, 0.1);
+            overflow: hidden;
+        }
+
+        .reference-container::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--blue), var(--purple), var(--pink));
+        }
+
+        .reference-id {
+            font-size: 1.4rem;
+            color: var(--blue);
+            letter-spacing: 1px;
+            display: block;
+            margin-top: 5px;
+            font-weight: 800;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, var(--blue), var(--purple));
+            color: var(--white);
+            padding: 14px 24px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 800;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+            text-decoration: none;
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
+            position: relative;
+        }
+
+        .btn-submit::after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            top: 50%;
+            left: 50%;
+            margin: -10px 0 0 -10px;
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            border-top-color: #fff;
+            border-radius: 50%;
+            opacity: 0;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.5);
+            filter: brightness(1.1);
+        }
+
+        .btn-submit:active {
+            color: transparent;
+            transform: scale(0.95);
+            animation: hold-loading 10s forwards;
+        }
+
+        .btn-submit:active::after {
+            opacity: 1;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes checkPop {
+            to {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes confettiBurst {
+            0% {
+                transform: scale(0.5);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1.4);
+                opacity: 0;
+                box-shadow: 0 -60px #ffcf10, 50px -50px #ff8c00, 60px 0 #1e8e3e, 50px 50px #3b82f6, 0 60px #a855f7, -50px 50px #ec4899, -60px 0 #ef4444;
+            }
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes hold-loading {
+            from {
+                color: transparent;
+                pointer-events: none;
+            }
+
+            to {
+                color: transparent;
+                pointer-events: none;
+            }
+        }
+
+        .loading-overlay {
+            position: fixed;
+            inset: 0;
+            background: white;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeOut 0.5s forwards 0.5s;
+            pointer-events: none;
+        }
+
+        .skeleton {
+            background: linear-gradient(90deg, #eee 25%, #f5f5f5 50%, #eee 75%);
+            background-size: 200% 100%;
+            animation: skeleton-load 1.5s infinite;
+        }
+
+        @keyframes skeleton-load {
+            from {
+                background-position: 200% 0;
+            }
+
+            to {
+                background-position: -200% 0;
+            }
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="loading-overlay">
+        <div style="max-width: 500px; width: 100%; text-align: center; padding: 3rem;">
+            <div class="skeleton" style="width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 1.5rem;"></div>
+            <div class="skeleton" style="width: 280px; height: 35px; margin: 0 auto 1rem;"></div>
+            <div class="skeleton" style="width: 100%; height: 15px; margin-bottom: 8px;"></div>
+            <div class="skeleton" style="width: 80%; height: 15px; margin: 0 auto 2rem;"></div>
+            <div style="border: 1px solid #eee; padding: 1rem; border-radius: 8px; margin-bottom: 2rem;">
+                <div class="skeleton" style="width: 120px; height: 10px; margin: 0 auto 10px; display: block;"></div>
+                <div class="skeleton" style="width: 180px; height: 25px; margin: 0 auto; display: block;"></div>
+            </div>
+            <div class="skeleton" style="width: 100%; height: 45px; border-radius: 5px;"></div>
+        </div>
+    </div>
+
+    <main class="container" style="display: flex; align-items: center; justify-content: center; min-height: 100vh;">
+        <div class="form-container">
+            <div class="success-checkmark-circle">
+                <span>✓</span>
+            </div>
+
+            <h1 style="color: var(--deped-blue); margin-bottom: 1rem;">Registration Successful!</h1>
+
+            <p style="color: #555; line-height: 1.6; margin-bottom: 2rem;">
+                Your account has been created successfully. You can now proceed to the admission page to complete your
+                enrollment.
+            </p>
+
+            <div class="reference-container">
+                <span
+                    style="display: block; font-size: 0.75rem; color: #888; text-transform: uppercase; font-weight: 700;">Application
+                    Reference</span>
+                <strong class="reference-id">OSHS-2026-8891</strong>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 15px;">
+                <a href="login.html" class="btn-submit">Sign In to Your Account</a>
+                <a href="index.html"
+                    style="color: var(--deped-blue); text-decoration: none; font-weight: 600; font-size: 0.9rem;">
+                    ← Return to Homepage
+                </a>
+            </div>
+        </div>
+    </main>
+
+</body>
+
+</html>

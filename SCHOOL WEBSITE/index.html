@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSHS Web</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="images/favicon-32x32.png?v=2">
+
+
+
+    <style>
+        @property --num-years {
+            syntax: "<integer>";
+            initial-value: 0;
+            inherits: false;
+        }
+
+        @property --num-students {
+            syntax: "<integer>";
+            initial-value: 0;
+            inherits: false;
+        }
+
+        @property --num-rate {
+            syntax: "<integer>";
+            initial-value: 0;
+            inherits: false;
+        }
+
+        .events-activites img {
+            width: 100%;
+            cursor: pointer;
+            border-radius: 10px;
+            display: block;
+        }
+
+        .details-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .modal-toggle:checked~.details-overlay {
+            display: flex;
+        }
+
+        .details-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .flex-gallery-item:hover img {
+            transform: scale(1.1);
+            filter: brightness(0.8) contrast(1.2);
+        }
+
+        .flex-gallery-item:hover::after,
+        .flex-gallery-item:hover::before {
+            opacity: 1;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 30px;
+            cursor: pointer;
+            color: #333;
+        }
+
+        .img-container {
+            position: relative;
+            display: block;
+            cursor: pointer;
+        }
+
+        .view-details-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .img-container:hover .view-details-text {
+            opacity: 1;
+        }
+
+        .img-container:hover img {
+            filter: brightness(50%);
+        }
+
+        .events-activites {
+            width: 100%;
+            height: auto;
+            min-height: 200px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        .img-container {
+            position: relative;
+            display: block;
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            cursor: pointer;
+        }
+
+        .img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .details-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            padding: 20px;
+        }
+
+        .details-content {
+            background: white;
+            padding: 40px 20px 30px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 500px;
+            position: relative;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .view-details-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            opacity: 0;
+            transition: all 0.3s ease;
+            pointer-events: none;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            white-space: nowrap;
+        }
+
+        @media (max-width: 768px) {
+            .events-activites {
+                position: relative;
+                height: auto;
+                overflow: visible;
+            }
+
+            .events-activites-heading::after {
+                content: 'Click Image to View more Details';
+                color: #856404;
+                display: block;
+                margin-bottom: 4px;
+            }
+
+            .details-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: var(--white);
+                display: none;
+                z-index: 10;
+                padding: 10px;
+                border-radius: 8px;
+                border: 2px solid var(--deped-blue);
+                box-shadow: none;
+            }
+
+            .details-content {
+                width: 100%;
+                height: 100%;
+                max-width: none;
+                padding: 15px;
+                box-shadow: none;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                overflow-y: auto;
+            }
+
+            .close-btn {
+                top: 5px;
+                right: 10px;
+                font-size: 24px;
+                color: var(--deped-red);
+            }
+
+            .details-content h3 {
+                font-size: 1rem;
+                margin-bottom: 5px;
+                color: var(--deped-blue);
+            }
+
+            .details-content p {
+                font-size: 0.85rem;
+                line-height: 1.3;
+            }
+        }
+
+        .school-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .stat-card {
+            position: relative;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 16px;
+            text-align: center;
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg,
+                    transparent 0deg,
+                    #3b82f6 90deg,
+                    transparent 180deg,
+                    #3b82f6 270deg,
+                    transparent 360deg);
+            animation: rotateBorder 4s linear infinite;
+            z-index: -2;
+        }
+
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            inset: 2px;
+            background: white;
+            border-radius: 14px;
+            z-index: -1;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.2);
+        }
+
+        .stat-card:hover::before {
+            animation-duration: 2s;
+        }
+
+        @keyframes rotateBorder {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .stat-num {
+            display: block;
+            font-size: 2rem;
+            font-weight: 800;
+            color: #3b82f6;
+            margin-bottom: 5px;
+        }
+
+        .years-count {
+            animation: countYears 3s forwards ease-out;
+            counter-reset: num var(--num-years);
+        }
+
+        .years-count::before {
+            content: counter(num) "+";
+        }
+
+        .student-count {
+            animation: countStudents 2.5s forwards ease-out;
+            counter-reset: num var(--num-students);
+        }
+
+        .student-count::before {
+            content: counter(num) "+";
+        }
+
+        .rate-count {
+            animation: countRate 2s forwards ease-out;
+            counter-reset: num var(--num-rate);
+        }
+
+        .rate-count::before {
+            content: counter(num) "%";
+        }
+
+        @keyframes countYears {
+            from {
+                --num-years: 0;
+            }
+
+            to {
+                --num-years: 9;
+            }
+        }
+
+        @keyframes countStudents {
+            from {
+                --num-students: 0;
+            }
+
+            to {
+                --num-students: 200;
+            }
+        }
+
+        @keyframes countRate {
+            from {
+                --num-rate: 0;
+            }
+
+            to {
+                --num-rate: 98;
+            }
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .school-info-chips {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .chip {
+            background: rgba(59, 130, 246, 0.05);
+            backdrop-filter: blur(4px);
+            color: #475569;
+            padding: 10px 20px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(59, 130, 246, 0.15);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+        }
+
+        .chip::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            background: #3b82f6;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+
+        .chip:hover {
+            background: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+            transform: scale(1.08) translateY(-3px);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .chip:hover::before {
+            background: white;
+            transform: scale(1.5);
+        }
+
+        .chip strong {
+            color: #3b82f6;
+            transition: color 0.3s ease;
+        }
+
+        .chip:hover strong {
+            color: white;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="loading-overlay">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4rem;">
+            <div class="skeleton" style="width: 100px; height: 30px;"></div>
+            <div style="display: flex; gap: 20px;">
+                <div class="skeleton" style="width: 60px; height: 20px;"></div>
+                <div class="skeleton" style="width: 60px; height: 20px;"></div>
+                <div class="skeleton" style="width: 60px; height: 20px;"></div>
+            </div>
+        </div>
+
+        <div class="skeleton" style="width: 100%; height: 300px; margin-bottom: 3rem; border-radius: 10px;"></div>
+
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;">
+            <div style="padding: 20px; border: 1px solid #eee; border-radius: 8px;">
+                <div class="skeleton" style="width: 40%; height: 25px; margin-bottom: 15px;"></div>
+                <div class="skeleton" style="width: 100%; height: 15px; margin-bottom: 10px;"></div>
+                <div class="skeleton" style="width: 80%; height: 15px;"></div>
+            </div>
+            <div style="padding: 20px; border: 1px solid #eee; border-radius: 8px;">
+                <div class="skeleton" style="width: 40%; height: 25px; margin-bottom: 15px;"></div>
+                <div class="skeleton" style="width: 100%; height: 15px; margin-bottom: 10px;"></div>
+                <div class="skeleton" style="width: 80%; height: 15px;"></div>
+            </div>
+            <div style="padding: 20px; border: 1px solid #eee; border-radius: 8px;">
+                <div class="skeleton" style="width: 40%; height: 25px; margin-bottom: 15px;"></div>
+                <div class="skeleton" style="width: 100%; height: 15px; margin-bottom: 10px;"></div>
+                <div class="skeleton" style="width: 80%; height: 15px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <header>
+        <nav>
+            <div class="logo" style="font-size: 1.5rem;"><strong><img src="images/favicon-32x32.png"
+                        style="padding-right: 5px; position: relative; top: 7px;"><a href="index.html"
+                        style="text-decoration: none;">Obando Senior High School</a></strong>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li class="strand-dropdown"><a>Strands<span class="dropdown-icon">▼</span></a>
+                    <ul class="dropdown-content">
+                        <li><a href="strands/ict.html" data-tooltip="Information and Communication Technology">ICT</a>
+                        </li>
+                        <li><a href="strands/he.html" data-tooltip="Home Economics">HE</a></li>
+                        <li><a href="strands/abm.html" data-tooltip="Accountancy, Business, and Management">ABM</a></li>
+                        <li><a href="strands/gas.html" data-tooltip="General Academic Strand">GAS</a></li>
+                        <li><a href="strands/stem.html"
+                                data-tooltip="Science, Technology, Engineering, and Mathematics">STEM</a></li>
+                        <li><a href="strands/humss.html" data-tooltip="Humanities and Social Sciences">HUMSS</a></li>
+                    </ul>
+                </li>
+                <li><a href="admission-steps/information.html">Admission</a></li>
+                <li class="login-btn"><a href="login.html">Sign in</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container fade-in-up">
+        <section class="hero-section">
+            <div class="typewriter">
+                <p></p>
+            </div>
+            <p>Quality Education. Nationalistic Values. Global Success. Empowering every Senior High School learner to
+                lead the Filipino dream.</p>
+        </section>
+
+        <section>
+            <h2>School Profile</h2>
+            <p>Founded in 2018, our school has consistently provided top-tier secondary education. Our mission is to
+                protect and promote the right of every Filipino to quality, equitable, culture-based, and complete basic
+                education.</p>
+
+            <div class="school-stats">
+                <div class="stat-card">
+                    <span class="stat-num years-count"></span>
+                    <span class="stat-label">Years of Excellence</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-num student-count"></span>
+                    <span class="stat-label">Current Enrolled Students</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-num rate-count"></span>
+                    <span class="stat-label">Graduation Rate</span>
+                </div>
+            </div>
+
+            <div class="school-info-chips">
+                <span class="chip"><strong>School ID:</strong> 345314</span>
+                <span class="chip"><strong>Division:</strong> Bulacan</span>
+                <span class="chip"><strong>Region:</strong> Region III</span>
+            </div>
+        </section>
+
+        <div class="login-gate-box">
+            <div class="gate-icon">🔒</div>
+            <h1 style="color: #ce1126;">Want to see more?</h1>
+            <p>To view our <strong>Strands</strong>, <strong>Admission Form</strong>, and <strong>More
+                    Information</strong>, you need to be part of the OSHS community.</p>
+            <div class="gate-buttons">
+                <a href="login.html" class="btn-primary">Login to View</a>
+                <a href="register.html" class="btn-secondary">Create Account</a>
+            </div>
+        </div>
+
+        <div class="protected-content">
+            <section>
+                <h2>Academic & TVL Strands</h2>
+                <div class="strands-grid">
+                    <div class="strand-card">
+                        <h3>ICT</h3>
+                        <p>Information and Communications Technology.</p>
+                        <a href="strands-in/ict.html">View Details</a>
+                    </div>
+                    <div class="strand-card">
+                        <h3>HE</h3>
+                        <p>Home Economics</p>
+                        <a href="strands-in/he.html">View Details</a>
+                    </div>
+                    <div class="strand-card">
+                        <h3>ABM</h3>
+                        <p>Accountancy, Business, and Management.</p>
+                        <a href="strands-in/abm.html">View Details</a>
+                    </div>
+                    <div class="strand-card">
+                        <h3>GAS</h3>
+                        <p>General Academic Strand</p>
+                        <a href="strands-in/gas.html">View Details</a>
+                    </div>
+                    <div class="strand-card">
+                        <h3>STEM</h3>
+                        <p>Science, Technology, Engineering, and Mathematics</p>
+                        <a href="strands-in/stem.html">View Details</a>
+                    </div>
+                    <div class="strand-card">
+                        <h3>HUMSS</h3>
+                        <p>Humanities and Social Sciences</p>
+                        <a href="strands-in/humss.html">View Details</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content" style="display: flex; flex-wrap: wrap; gap: 50px;">
+
+                <div style="flex: 2 1 300px;">
+                    <h3 style="color: var(--white); margin-bottom: 1rem;">OBANDO <span
+                            style="color: var(--accent-gold);">SHS</span></h3>
+                    <p style="font-size: 0.9rem; color: #e6e6e6;">Dedicated to providing quality, equitable, and
+                        culture-based basic education to the youth of our community. Registered public school under the
+                        Schools Division Office.</p>
+
+                    <div class="social-links" style="display: flex; gap: 12px; margin-top: 1.5rem;">
+                        <a href="https://www.facebook.com/obandoseniorhighschool" target="_blank" class="social-icon"
+                            title="Follow us on Facebook">
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                            </svg>
+                        </a>
+                        <a href="mailto:OSHS@edu.ph" class="social-icon" title="Email Us">
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M0 3v18h24v-18h-24zm21.518 2l-9.518 7.713-9.518-7.713h19.036zm-19.518 14v-11.817l10 8.104 10-8.104v11.817h-20z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <div style="flex: 1 1 150px;">
+                    <h4 style="color: var(--accent-gold); margin-bottom: 1rem;">Navigation</h4>
+                    <ul class="footer-navigation" style="list-style: none; font-size: 0.9rem;">
+                        <li style="margin-bottom: 8px;"><a href="index.html" style="text-decoration: none;">Home</a>
+                        </li>
+                        <li style="margin-bottom: 8px;"><a href="admission-steps/information.html"
+                                style="text-decoration: none;">Admission</a></li>
+                        <li style="margin-bottom: 8px;"><a href="faq.html" style="text-decoration: none;">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <div style="flex: 1 1 200px;">
+                    <h4 style="color: var(--accent-gold); margin-bottom: 1rem;">Contact Us</h4>
+                    <p style="font-size: 0.9rem; color: #e6e6e6; margin-bottom: 8px;">📍 Paliwas, Obando, Bulacan</p>
+                    <p style="font-size: 0.9rem; color: #e6e6e6; margin-bottom: 8px;">📞 (02) 8920-1234</p>
+                    <p style="font-size: 0.9rem; color: #e6e6e6;">✉️ OSHS@edu.ph</p>
+                </div>
+            </div>
+
+            <div class="footer-bottom"
+                style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #424242; text-align: center; color: #e6e6e6; font-size: 0.8rem;">
+                &copy; OSHS. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
